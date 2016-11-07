@@ -1,12 +1,18 @@
 FROM node:latest
 MAINTAINER Ben Edmunds
 
-# Environment variables mostly overridden from dockercompose or docker run
+#Defaults Environment variables..will be overridden from docker run
 ENV HUBOT_SLACK_TOKEN xoxb-86458599122-dJtxMjdQgl7W22OcRIpalsSz
 ENV HUBOT_NAME chatbot
 ENV HUBOT_OWNER none
 ENV HUBOT_DESCRIPTION Hubot
 ENV EXTERNAL_SCRIPTS "hubot-help,hubot-pugme"
+ENV ADAPTER slack
+
+#ENV in case of hipchat
+ENV HUBOT_HIPCHAT_JID=123_456@chat.hipchat.com
+ENV HUBOT_HIPCHAT_PASSWORD=password
+ENV HUBOT_HIPCHAT_ROOMS=testroom
 
 RUN useradd hubot -m
 
@@ -23,10 +29,10 @@ USER hubot
 
 WORKDIR /home/hubot
 
-RUN yo hubot --owner="${HUBOT_OWNER}" --name="${HUBOT_NAME}" --description="${HUBOT_DESCRIPTION}" --defaults && sed -i /redis-brain/d ./external-scripts.json && npm install hubot-scripts &&  npm install mysql && npm install hubot-slack --save
+RUN yo hubot --owner="${HUBOT_OWNER}" --name="${HUBOT_NAME}" --description="${HUBOT_DESCRIPTION}" --defaults && sed -i /redis-brain/d ./external-scripts.json && npm install hubot-scripts &&  npm install mysql && npm install hubot-slack --save && npm install hubot-hipchat --save
 
 VOLUME ["/home/hubot/scripts"]
 
 CMD node -e "console.log(JSON.stringify('$EXTERNAL_SCRIPTS'.split(',')))" > external-scripts.json && \
 	npm install $(node -e "console.log('$EXTERNAL_SCRIPTS'.split(',').join(' '))") && \
-	bin/hubot -n $HUBOT_NAME --adapter slack
+	bin/hubot -n $HUBOT_NAME --adapter $ADAPTER
