@@ -23,7 +23,7 @@ USER hubot
 
 WORKDIR /home/hubot
 
-RUN yo hubot --owner="${HUBOT_OWNER}" --name="${HUBOT_NAME}" --description="${HUBOT_DESCRIPTION}" --defaults && sed -i /heroku/d ./external-scripts.json && sed -i /redis-brain/d ./external-scripts.json && npm install hubot-scripts &&  npm install mysql && npm install hubot-slack --save
+RUN yo hubot --owner="${HUBOT_OWNER}" --name="${HUBOT_NAME}" --description="${HUBOT_DESCRIPTION}" --defaults && sed -i /redis-brain/d ./external-scripts.json && npm install hubot-scripts &&  npm install mysql && npm install hubot-slack --save
 
 VOLUME ["/home/hubot/scripts"]
 
