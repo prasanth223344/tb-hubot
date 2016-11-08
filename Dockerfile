@@ -14,6 +14,18 @@ ENV HUBOT_HIPCHAT_JID=123_456@chat.hipchat.com
 ENV HUBOT_HIPCHAT_PASSWORD=password
 ENV HUBOT_HIPCHAT_ROOMS=testroom
 
+#ENV for irc
+ENV HUBOT_IRC_SERVER=irc.freenode.net \
+ENV HUBOT_IRC_ROOMS="#myhubot-irc" \
+ENV HUBOT_IRC_NICK="myhubot" \
+#HUBOT_IRC_USERNAME optional
+#HUBOT_IRC_PASSWORD optional
+
+#ENV for campfire
+ENV HUBOT_CAMPFIRE_ACCOUNT
+ENV HUBOT_CAMPFIRE_TOKEN
+ENV HUBOT_CAMPFIRE_ROOMS
+
 RUN useradd hubot -m
 
 RUN     npm cache clean
@@ -29,7 +41,8 @@ USER hubot
 
 WORKDIR /home/hubot
 
-RUN yo hubot --owner="${HUBOT_OWNER}" --name="${HUBOT_NAME}" --description="${HUBOT_DESCRIPTION}" --defaults && sed -i /redis-brain/d ./external-scripts.json && npm install hubot-scripts &&  npm install mysql && npm install hubot-slack --save && npm install hubot-hipchat --save
+RUN yo hubot --owner="${HUBOT_OWNER}" --name="${HUBOT_NAME}" --description="${HUBOT_DESCRIPTION}" --defaults && sed -i /redis-brain/d ./external-scripts.json && npm install hubot-scripts &&  npm install mysql && npm install hubot-slack --save && npm install hubot-hipchat --save && npm install hubot-irc 
+
 
 VOLUME ["/home/hubot/scripts"]
 
