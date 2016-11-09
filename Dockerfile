@@ -15,9 +15,9 @@ ENV HUBOT_HIPCHAT_PASSWORD=password
 ENV HUBOT_HIPCHAT_ROOMS=testroom
 
 #ENV for irc
-ENV HUBOT_IRC_SERVER=irc.freenode.net \
-ENV HUBOT_IRC_ROOMS="#myhubot-irc" \
-ENV HUBOT_IRC_NICK="myhubot" \
+ENV HUBOT_IRC_SERVER=irc.freenode.net 
+ENV HUBOT_IRC_ROOMS="#myhubot-irc" 
+ENV HUBOT_IRC_NICK="myhubot" 
 #HUBOT_IRC_USERNAME optional
 #HUBOT_IRC_PASSWORD optional
 
